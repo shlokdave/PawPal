@@ -1,14 +1,20 @@
-// src/index.js
-import { AppRegistry } from 'react-native';
+import { AppRegistry, Platform } from 'react-native';
 import App from './App';
-import { name as appName } from './app.json';
 import { registerRootComponent } from 'expo';
 
-// register the app
+// Register the app with Expo for mobile platforms
 registerRootComponent(App);
 
-AppRegistry.registerComponent(appName, () => App);
-AppRegistry.runApplication(appName, {
-    initialProps: {},
-    rootTag: document.getElementById('root'),
-});
+const appName = 'PawPal'; // Manually set appName if it's not coming from app.json
+
+if (Platform.OS === 'web') {
+    // Register the app for the web platform
+    AppRegistry.registerComponent(appName, () => App);
+    AppRegistry.runApplication(appName, {
+        initialProps: {},
+        rootTag: document.getElementById('root'),
+    });
+} else {
+    // For mobile platforms, just register the app
+    AppRegistry.registerComponent(appName, () => App);
+}
