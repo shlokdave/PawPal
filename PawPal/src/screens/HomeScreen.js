@@ -1,18 +1,18 @@
-// src/screens/HomeScreen.js
-import React from 'react';
-import { StyleSheet, Text, View, TextInput, Button, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, TextInput, Button, ScrollView, TouchableOpacity } from 'react-native';
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
+    const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            {/* Display a custom welcome message */}
             <Text style={styles.title}>Welcome to PawPal!</Text>
             <Text style={styles.subtitle}>Your AI-powered pet care assistant</Text>
             <Text style={styles.description}>
                 Start exploring the app to provide the best care for your pets.
             </Text>
 
-            {/* Login Form */}
             <View style={styles.loginContainer}>
                 <Text style={styles.label}>Email</Text>
                 <TextInput
@@ -22,16 +22,30 @@ export default function HomeScreen() {
                 />
 
                 <Text style={styles.label}>Password</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Enter your password"
-                    secureTextEntry
-                />
+                <View style={styles.passwordContainer}>
+                    <TextInput
+                        style={styles.inputPassword}
+                        placeholder="Enter your password"
+                        secureTextEntry={!showPassword}
+                        value={password}
+                        onChangeText={setPassword}
+                    />
+                    <TouchableOpacity
+                        style={styles.showButton}
+                        onPress={() => setShowPassword(!showPassword)}
+                    >
+                        <Text style={styles.showButtonText}>
+                            {showPassword ? 'Hide' : 'Show'}
+                        </Text>
+                    </TouchableOpacity>
+                </View>
 
                 <View style={styles.buttonContainer}>
                     <Button title="Login" onPress={() => alert('Login pressed')} />
                 </View>
             </View>
+            <Text style={[styles.subtitle, { fontWeight: 'bold' }]}>New User?</Text>
+            <Button title="Sign Up" onPress={() => navigation.navigate('SignUp')} />
         </ScrollView>
     );
 }
@@ -47,46 +61,66 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 28,
         fontWeight: 'bold',
-        color: '#333', // Dark grey text color
-        marginBottom: 10, // Space below the title
+        color: '#333',
+        marginBottom: 10,
     },
     subtitle: {
         fontSize: 20,
-        color: '#555', // Medium grey text color
-        marginBottom: 20, // Space below the subtitle
+        color: '#555',
+        marginBottom: 20,
     },
     description: {
         fontSize: 16,
-        color: '#666', // Lighter grey text color
-        textAlign: 'center', // Center align text for better readability
-        marginBottom: 30, // Space below the description
+        color: '#666',
+        textAlign: 'center',
+        marginBottom: 30,
     },
     loginContainer: {
         width: '100%',
         padding: 20,
-        backgroundColor: '#f9f9f9', // Light background for the form area
-        borderRadius: 10, // Rounded corners for the form area
-        shadowColor: '#000', // Shadow color for a subtle shadow effect
-        shadowOffset: { width: 0, height: 2 }, // Shadow offset
-        shadowOpacity: 0.1, // Shadow opacity
-        shadowRadius: 5, // Shadow radius
-        elevation: 3, // Elevation for Android shadow
-        marginBottom: 50, // Add space below the form
+        backgroundColor: '#f9f9f9',
+        borderRadius: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        elevation: 3,
+        marginBottom: 50,
     },
     label: {
         fontSize: 16,
-        color: '#333', // Dark grey text color
-        marginBottom: 5, // Space below the label
+        color: '#333',
+        marginBottom: 5,
     },
     input: {
         height: 40,
-        borderColor: '#ccc', // Light grey border color
+        borderColor: '#ccc',
         borderWidth: 1,
-        borderRadius: 5, // Rounded corners for the input field
-        marginBottom: 20, // Space below the input field
-        paddingHorizontal: 10, // Padding inside the input field
+        borderRadius: 5,
+        marginBottom: 20,
+        paddingHorizontal: 10,
+    },
+    passwordContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderColor: '#ccc',
+        borderWidth: 1,
+        borderRadius: 5,
+        marginBottom: 20,
+        paddingHorizontal: 10,
+    },
+    inputPassword: {
+        flex: 1,
+        height: 40,
+    },
+    showButton: {
+        padding: 5,
+    },
+    showButtonText: {
+        color: '#007BFF',
+        fontWeight: 'bold',
     },
     buttonContainer: {
-        marginTop: 10, // Space above the button
+        marginTop: 10,
     },
 });
