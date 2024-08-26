@@ -41,7 +41,7 @@ export default function HomeScreen({ navigation }) {
                 </View>
 
                 <View style={styles.buttonContainer}>
-                    <Button title="Login" onPress={() => alert('Login pressed')} />
+                    <Button title="Login" onPress={() => navigation.navigate('Land')} />
                 </View>
             </View>
             <Text style={[styles.subtitle, { fontWeight: 'bold' }]}>New User?</Text>
