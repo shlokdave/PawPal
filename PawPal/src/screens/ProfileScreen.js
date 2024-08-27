@@ -1,8 +1,18 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Modal } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Modal, Image } from 'react-native';
 
-export default function ProfileScreen() {
+export default function ProfileScreen({ route }) {
     const [modalVisible, setModalVisible] = useState(false);
+    const [imageUri, setImageUri] = useState(null);
+
+    useEffect(() => {
+        console.log('Received route params:', route.params); // Log the route parameters
+        if (route.params?.imageUri) {
+            setImageUri(route.params.imageUri);
+            console.log('Image URI:', route.params.imageUri); // Log the received imageUri
+        }
+    }, [route.params?.imageUri]);
+
 
     return (
         <View style={styles.container}>
@@ -18,10 +28,15 @@ export default function ProfileScreen() {
 
             {/* Pet Photo Section */}
             <View style={styles.petPhotoContainer}>
-                <View style={styles.petPhoto}>
-                    <Text style={styles.petPhotoText}>PET PHOTO</Text>
-                </View>
+                {imageUri ? (
+                    <Image source={{ uri: imageUri }} style={styles.petPhoto} />
+                ) : (
+                    <View style={styles.petPhotoPlaceholder}>
+                        <Text style={styles.petPhotoText}>PET PHOTO</Text>
+                    </View>
+                )}
             </View>
+
 
             {/* Pet Details Section */}
             <View style={styles.petDetailsContainer}>
@@ -101,7 +116,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 20,
     },
-    petPhoto: {
+    petPhotoPlaceholder: {
         width: 150,
         height: 150,
         borderWidth: 1,
@@ -110,6 +125,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 10,
         backgroundColor: '#f9f9f9',
+    },
+    petPhoto: {
+        width: 400,
+        height: 400,
+        borderRadius: 10,
     },
     petPhotoText: {
         fontSize: 16,

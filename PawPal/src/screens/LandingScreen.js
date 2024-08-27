@@ -87,7 +87,7 @@ export default function LandingScreen({ navigation }) {
                 {/* Icons in the Bottom Bar */}
                 <View style={styles.iconRow}>
                     <Image
-                        source={require('PawPal/assets/HomeIcon.png')}
+                        source={require('../../assets/HomeIcon.png')}
                         style={styles.icon}
                         resizeMode="contain"
                     />
@@ -98,11 +98,14 @@ export default function LandingScreen({ navigation }) {
                             resizeMode="contain"
                         />
                     </TouchableOpacity>
-                    <Image
-                        source={require('../../assets/CameraIcon.png')}
-                        style={styles.icon}
-                        resizeMode="contain"
-                    />
+
+                    <TouchableOpacity onPress={() => navigation.navigate('Camera')}>
+                        <Image
+                            source={require('../../assets/CameraIcon.png')}
+                            style={styles.icon}
+                            resizeMode="contain"
+                        />
+                    </TouchableOpacity>
                     <Image
                         source={require('../../assets/BelIIcon.png')}
                         style={styles.icon}
