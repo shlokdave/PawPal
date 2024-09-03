@@ -33,3 +33,5 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+PawPal/back-end/newenv/
+back-end/newenv/
