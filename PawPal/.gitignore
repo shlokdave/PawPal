@@ -33,5 +33,15 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+# Ignore the entire newenv directories except specific files
 PawPal/back-end/newenv/
 back-end/newenv/
+
+# Allow specific large files in the ignored directories
+!back-end/newenv/lib/python3.10/site-packages/jaxlib/mlir/_mlir_libs/libjaxlib_mlir_capi.dylib
+!back-end/newenv/lib/python3.10/site-packages/tensorflow/compiler/mlir/stablehlo/stablehlo_extension.so
+!back-end/newenv/lib/python3.10/site-packages/clang/native/libclang.dylib
+!back-end/newenv/lib/python3.10/site-packages/jaxlib/xla_extension.so
+!back-end/newenv/lib/python3.10/site-packages/tensorflow/libtensorflow_cc.2.dylib
+!back-end/tensorflow-2.16.2-cp39-cp39-macosx_10_15_x86_64.whl
